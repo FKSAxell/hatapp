@@ -21,14 +21,15 @@ class GorraPage extends StatelessWidget {
                 children: [
                   GorraSizePreview(),
                   GorraDescripcion(
-                    titulo: 'Nike Air Max 720',
+                    titulo: 'Jordan Pro Jumpman',
                     descripcion:
-                        "The Nike Air Max 720 goes bigger than ever before with Nike's taller Air unit yet, offering more air underfoot for unimaginable, all-day comfort. Has Air Max gone too far? We hope so.",
+                        "The Jordan Pro Jumpman Classics Cap has a high, structured crown and flat bill, giving you the classic shape. The Jumpman by Nike logo reestablishes the icon, while a snapback closure adjusts to fit.\n \nShown: Black/Gym Red/Black/Gym Red \nStyle: DC3681-010",
                   ),
                 ],
               ),
             ),
-          )
+          ),
+          AgregarCarritoBoton(monto: 180.0)
         ],
       ),
     );
