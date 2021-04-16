@@ -57,20 +57,24 @@ class _TallaGorraCaja extends StatelessWidget {
       child: Text(
         '${this.numero.toString().replaceAll('.0', '')}',
         style: TextStyle(
-            color: Color(0xffd64541),
+            color: (this.numero == 9) ? Colors.white : Color(0xffd64541),
             fontSize: 16,
             fontWeight: FontWeight.bold),
       ),
       width: 45,
       height: 45,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            // BoxShadow(
-            // TODO: Pendiente
-            // )
-          ]),
+        color: (this.numero == 9) ? Color(0xff96281b) : Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          if (this.numero == 9)
+            BoxShadow(
+              color: Color(0xff96281b),
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+        ],
+      ),
     );
   }
 }
