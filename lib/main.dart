@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hatapp/src/pages/gorra_desc_page.dart';
-import 'package:hatapp/src/pages/gorra_page.dart';
+import 'package:hatapp/src/models/gorra_model.dart';
 
-void main() => runApp(MyApp());
+import 'package:hatapp/src/pages/gorra_page.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  return runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => GorraModel())],
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -10,8 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HatApp',
       debugShowCheckedModeBanner: false,
-      // home: GorraPage(),
-      home: GorraDescPage(),
+      home: GorraPage(),
+      // home: GorraDescPage(),
     );
   }
 }

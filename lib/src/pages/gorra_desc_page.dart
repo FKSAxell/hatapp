@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hatapp/src/widgets/custom_widgets.dart';
 
@@ -9,7 +10,10 @@ class GorraDescPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              GorraSizePreview(fullScreen: true),
+              Hero(
+                tag: "gorra-1",
+                child: GorraSizePreview(fullScreen: true),
+              ),
               Positioned(
                 top: 80,
                 child: FloatingActionButton(
@@ -18,7 +22,9 @@ class GorraDescPage extends StatelessWidget {
                     color: Colors.white,
                     size: 60,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                   highlightElevation: 0,
@@ -119,10 +125,10 @@ class _ColoresYmas extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                Positioned(left: 90, child: _BotonColor(Color(0xffC6D642))),
-                Positioned(left: 60, child: _BotonColor(Color(0xffFFAD29))),
-                Positioned(left: 30, child: _BotonColor(Color(0xffd64541))),
-                _BotonColor(Color(0xff364d56)),
+                Positioned(left: 90, child: _BotonColor(Color(0xffC6D642), 4)),
+                Positioned(left: 60, child: _BotonColor(Color(0xffFFAD29), 3)),
+                Positioned(left: 30, child: _BotonColor(Color(0xffd64541), 2)),
+                _BotonColor(Color(0xff364d56), 1),
               ],
             ),
           ),
@@ -141,16 +147,21 @@ class _ColoresYmas extends StatelessWidget {
 
 class _BotonColor extends StatelessWidget {
   final Color color;
-  const _BotonColor(this.color);
+  final int index;
+  const _BotonColor(this.color, this.index);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 45,
-      height: 45,
-      decoration: BoxDecoration(
-        color: this.color,
-        shape: BoxShape.circle,
+    return FadeInLeft(
+      delay: Duration(milliseconds: this.index * 100),
+      duration: Duration(milliseconds: 300),
+      child: Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+          color: this.color,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }
@@ -170,11 +181,15 @@ class _MontoBuyNow extends StatelessWidget {
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             Spacer(),
-            BotonNaranja(
-              texto: 'Buy now',
-              ancho: 120,
-              alto: 40,
-              color: Color(0xffd64541),
+            Bounce(
+              delay: Duration(seconds: 1),
+              from: 8,
+              child: BotonNaranja(
+                texto: 'Buy now',
+                ancho: 120,
+                alto: 40,
+                color: Color(0xffd64541),
+              ),
             )
           ],
         ),

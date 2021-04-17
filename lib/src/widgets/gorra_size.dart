@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hatapp/src/models/gorra_model.dart';
+import 'package:hatapp/src/pages/gorra_desc_page.dart';
+import 'package:provider/provider.dart';
 
 class GorraSizePreview extends StatelessWidget {
   final bool fullScreen;
@@ -8,31 +11,43 @@ class GorraSizePreview extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: (this.fullScreen) ? 5.0 : 30.0,
-        vertical: (this.fullScreen) ? 0 : 5.0,
-      ),
-      child: Container(
-        width: double.infinity,
-        height: (this.fullScreen) ? 360 : 430, //TODO: Arreglar tamaño
-        decoration: BoxDecoration(
-          color: Color(0xffd64541), //0xffF8D468
-          borderRadius: (!this.fullScreen)
-              ? BorderRadius.circular(50)
-              : BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                  //topLeft: Radius.circular(40),
-                  //topRight: Radius.circular(40),
-                ),
+    return GestureDetector(
+      onTap: () {
+        if (!this.fullScreen) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => GorraDescPage(),
+            ),
+          );
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: (this.fullScreen) ? 5.0 : 30.0,
+          vertical: (this.fullScreen) ? 5 : 0.0,
         ),
-        child: Column(
-          children: [
-            //Gorra con Sombra
-            _GorraConSombra(),
-            if (!this.fullScreen) _GorraTallas()
-          ],
+        child: Container(
+          width: double.infinity,
+          height: (this.fullScreen) ? 380 : 430, //TODO: Arreglar tamaño
+          decoration: BoxDecoration(
+            color: Color(0xffd64541), //0xffF8D468
+            borderRadius: (!this.fullScreen)
+                ? BorderRadius.circular(50)
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+          ),
+          child: Column(
+            children: [
+              //Gorra con Sombra
+              _GorraConSombra(),
+              if (!this.fullScreen) _GorraTallas()
+            ],
+          ),
         ),
       ),
     );
@@ -72,28 +87,39 @@ class _TallaGorraCaja extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        '${this.numero.toString().replaceAll('.0', '')}',
-        style: TextStyle(
-            color: (this.numero == 9) ? Colors.white : Color(0xffd64541),
-            fontSize: 16,
-            fontWeight: FontWeight.bold),
-      ),
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: (this.numero == 9) ? Color(0xff96281b) : Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          if (this.numero == 9)
-            BoxShadow(
-              color: Color(0xff96281b),
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            ),
-        ],
+    final gorraModel = Provider.of<GorraModel>(context);
+    return GestureDetector(
+      onTap: () {
+        final gorraModel = Provider.of<GorraModel>(context, listen: false);
+        gorraModel.talla = this.numero;
+      },
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          '${this.numero.toString().replaceAll('.0', '')}',
+          style: TextStyle(
+              color: (this.numero == gorraModel.talla)
+                  ? Colors.white
+                  : Color(0xffd64541),
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+        ),
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: (this.numero == gorraModel.talla)
+              ? Color(0xff96281b)
+              : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            if (this.numero == gorraModel.talla)
+              BoxShadow(
+                color: Color(0xff96281b),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+          ],
+        ),
       ),
     );
   }

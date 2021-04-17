@@ -19,7 +19,10 @@ class GorraPage extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  GorraSizePreview(),
+                  Hero(
+                    tag: "gorra-1",
+                    child: GorraSizePreview(),
+                  ),
                   GorraDescripcion(
                     titulo: 'Jordan Pro Jumpman',
                     descripcion:
