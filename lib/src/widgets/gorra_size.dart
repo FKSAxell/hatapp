@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
 
 class GorraSizePreview extends StatelessWidget {
+  final bool fullScreen;
+
+  const GorraSizePreview({
+    this.fullScreen = false,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 5),
+      padding: EdgeInsets.symmetric(
+        horizontal: (this.fullScreen) ? 5.0 : 30.0,
+        vertical: (this.fullScreen) ? 0 : 5.0,
+      ),
       child: Container(
         width: double.infinity,
-        height: 430, //TODO: Arreglar tamaño
+        height: (this.fullScreen) ? 360 : 430, //TODO: Arreglar tamaño
         decoration: BoxDecoration(
           color: Color(0xffd64541), //0xffF8D468
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: (!this.fullScreen)
+              ? BorderRadius.circular(50)
+              : BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50),
+                  //topLeft: Radius.circular(40),
+                  //topRight: Radius.circular(40),
+                ),
         ),
         child: Column(
           children: [
             //Gorra con Sombra
             _GorraConSombra(),
-
-            _GorraTallas()
+            if (!this.fullScreen) _GorraTallas()
           ],
         ),
       ),
@@ -33,12 +47,18 @@ class _GorraTallas extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          SizedBox(
+            width: 2,
+          ),
           _TallaGorraCaja(7),
           _TallaGorraCaja(7.5),
           _TallaGorraCaja(8),
           _TallaGorraCaja(8.5),
           _TallaGorraCaja(9),
           _TallaGorraCaja(9.5),
+          SizedBox(
+            width: 2,
+          ),
         ],
       ),
     );
@@ -61,8 +81,8 @@ class _TallaGorraCaja extends StatelessWidget {
             fontSize: 16,
             fontWeight: FontWeight.bold),
       ),
-      width: 45,
-      height: 45,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(
         color: (this.numero == 9) ? Color(0xff96281b) : Colors.white,
         borderRadius: BorderRadius.circular(10),
