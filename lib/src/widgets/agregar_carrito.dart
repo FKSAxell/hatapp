@@ -14,7 +14,7 @@ class AgregarCarritoBoton extends StatelessWidget {
         width: double.infinity,
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.20),
+          color: Colors.grey.withOpacity(0.15),
           borderRadius: BorderRadius.circular(100),
         ),
         child: Row(

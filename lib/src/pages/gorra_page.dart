@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hatapp/src/helpers/helpers.dart';
 import 'package:hatapp/src/widgets/custom_widgets.dart';
 
 class GorraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    cambiarStatusDark();
     return Scaffold(
       // body: GorraSizePreview(),
       body: Column(

@@ -31,7 +31,7 @@ class GorraSizePreview extends StatelessWidget {
           width: double.infinity,
           height: (this.fullScreen) ? 380 : 430, //TODO: Arreglar tamaño
           decoration: BoxDecoration(
-            color: Color(0xffd64541), //0xffF8D468
+            color: Color(0xffd64541), //0xffF8D468 0xffd64541
             borderRadius: (!this.fullScreen)
                 ? BorderRadius.circular(50)
                 : BorderRadius.only(
@@ -128,6 +128,7 @@ class _TallaGorraCaja extends StatelessWidget {
 class _GorraConSombra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final gorraModel = Provider.of<GorraModel>(context);
     return Padding(
       padding: EdgeInsets.all(0),
       child: Stack(
@@ -140,7 +141,7 @@ class _GorraConSombra extends StatelessWidget {
           Image(
             width: 350,
             height: 350,
-            image: AssetImage('assets/img/pixlr-bg-result.png'),
+            image: AssetImage(gorraModel.assetImage),
           )
         ],
       ),
